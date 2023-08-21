@@ -1,6 +1,24 @@
 #include <iostream>
 using namespace std;
+/*
+Implemente um programa que manipule uma pilha. O programa deve ser desenvolvido com as seguintes regras:
+Criar um menu com as opções:
+    Criar pilha – O usuário deve informar o tamanho da pilha; caso a pilha já tenha sido criada 
+anteriormente, antes de criar uma pilha nova, a pilha antiga deve ser removida e a memória deve 
+ser desalocada.
+    Inserir – O usuário deve informar um valor a ser inserido; caso a pilha esteja cheia, uma mensagem 
+deve ser exibida.
+    Remover – Remover um elemento da pilha e mostrar o elemento removido; caso a pilha esteja 
+vazia, uma mensagem deve ser exibida.
+    Consultar – Verificar se a pilha contém um determinado valor informado pelo usuário.
+o Mostrar – Mostar a pilha.
+    Sair – Sair do programa.
 
+• Não permitir a inclusão de valores duplicados;
+• Imprimir uma mensagem de erro caso a pilha não tenha sido criada e o usuário tente executar uma das 
+seguintes operações: inserir, remover, consultar ou mostrar.
+
+*/
 #include "pilha/pilha.hpp"
 
 int main(void)
@@ -26,7 +44,7 @@ int main(void)
 
         if (!verificaInicializacaoP(&pl) && (escolha == 2 ||escolha == 3 ||escolha == 4 ||escolha == 5))
         {
-            cout << "A pilha ainda n�o existe" << endl;
+            cout << "A pilha ainda não existe" << endl;
             system("pause");
             escolha = -1;
         }
@@ -48,7 +66,7 @@ int main(void)
         case 2:
             if (cheiaP(&pl))
             {
-                cout << "A pilha est� cheia" << endl;
+                cout << "A pilha está cheia" << endl;
             }
             else
             {
@@ -57,7 +75,7 @@ int main(void)
 
                 if (buscaP(&pl, valor))
                 {
-                    cout << "O valor j� existe dentro da pilha." << endl;
+                    cout << "O valor já existe dentro da pilha." << endl;
                 }
                 else
                 {
@@ -69,7 +87,7 @@ int main(void)
         case 3:
             if (vaziaP(&pl))
             {
-                cout << "A pilha est� vazia" << endl;
+                cout << "A pilha está vazia" << endl;
             }
             else
             {
@@ -83,10 +101,10 @@ int main(void)
 
             if(buscaP(&pl, valor))
             {
-               cout << "O valor " << valor << " est� contido na pilha" << endl;
+               cout << "O valor " << valor << " está contido na pilha" << endl;
             }
             else
-                cout << "O valor " << valor << " n�o est� contido na pilha" << endl;
+                cout << "O valor " << valor << " não está contido na pilha" << endl;
             system("pause");
             break;
         case 5:
