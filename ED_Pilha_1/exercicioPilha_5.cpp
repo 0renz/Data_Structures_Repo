@@ -6,6 +6,15 @@ using namespace std;
 
 #include "pilha/pilhaChar.hpp"
 
+/*
+Faça um programa que leia uma string e verifica se o texto é um palíndromo, ou seja, se a string é escrita da 
+mesma maneira de frente para trás e de trás para frente. Ignore espaços e pontos.
+
+Observações:
+- Modificar a estrutura da Pilha para armazenas dados do tipo char.
+- Use uma pilha para realizar a verificação do palíndromo, não é permitido o uso de vetores auxiliares.
+*/
+
 bool palindromo(Pilha *p, Pilha *pAux, int n);
 
 int main(void)
@@ -43,10 +52,10 @@ int main(void)
 
     if (palindromo(&p, &pAux, n))
     {
-        cout << "\nEssa palavra � um pal�ndromo.";
+        cout << "\nEssa palavra é um palíndromo.";
     }
     else
-        cout << "\nEssa palavra n�o � um pal�ndromo.";
+        cout << "\nEssa palavra não é um palíndromo.";
 }
 
 bool palindromo(Pilha *p, Pilha *pAux, int n)
