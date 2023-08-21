@@ -4,6 +4,11 @@ using namespace std;
 
 #include "pilha/pilhaString.hpp"
 
+/*
+Crie uma pilha que permita armazenar dados do tipo string. Para isso, deve-se modificar a estrutura da Pilha, “int 
+*dados;” para “string *dados;”. Além disso, as demais funções que recebem o valor do tipo inteiro devem ser 
+alteradas para o tipo string.
+*/
 
 int main(void)
 {
