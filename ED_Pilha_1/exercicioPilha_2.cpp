@@ -4,6 +4,13 @@ using namespace std;
 
 #include "pilha/pilha.hpp"
 
+/*
+Faça um programa que cadastre em uma estrutura do tipo pilha vários números, sendo no máximo 6, ao remover 
+um número desta estrutura (desempilhado) o mesmo deve ser empilhado em outra pilha, conforme o critério: se 
+o número for par na pilha dos pares, se for ímpar na pilha dos ímpares. No menu de opções deve ter uma 
+alternativa para zerar as três pilhas, mostrar pilha inicial, a dos pares e a dos ímpares
+*/
+
 int main(void)
 {
     setlocale(LC_ALL, "Portuguese");
@@ -22,7 +29,7 @@ int main(void)
         cout << "\n1 - Gera pilha inicial";
         cout << "\n2 - Mostra pilha inicial";
         cout << "\n3 - Desempilha pilha inicial";
-        cout << "\n4 - Mostra pilhas de pares/�mpares";
+        cout << "\n4 - Mostra pilhas de pares/ímpares";
         cout << "\n5 - Zerar pilhas";
         cout << endl << endl;
 
@@ -58,7 +65,7 @@ int main(void)
             system("pause");
             break;
         case 4:
-            cout << "Pilha de �mpares:" << endl;
+            cout << "Pilha de ímpares:" << endl;
             mostraP(&plImpares);
             cout << endl;
             cout << "Pilha de pares:" << endl;
