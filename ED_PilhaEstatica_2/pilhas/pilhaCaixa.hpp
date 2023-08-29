@@ -78,7 +78,8 @@ bool empilhaP(Pilha *p, Caixa c) ///push
         return false;
     else{
         p->topo++;
-        p->dados[p->topo] = c;
+        p->dados[p->topo].codigo = c.codigo;
+        p->dados[p->topo].peso = c.peso;
         return true;
     }
 }
@@ -86,10 +87,10 @@ bool empilhaP(Pilha *p, Caixa c) ///push
 
 
 ///pop
-string desempilhaP(Pilha *p) ///pop
+Caixa desempilhaP(Pilha *p) ///pop
 {
 
-    string valor = 0; //inicializar a variável valor, a qual será retornada
+    Caixa valor; //inicializar a variável valor, a qual será retornada
 
     ///se a pilha foi inicializada && se não estiver vazia, retira valor
     if (vaziaP(p)==false)
@@ -104,9 +105,9 @@ string desempilhaP(Pilha *p) ///pop
 
 
 ///peek
-string espiaP(Pilha *p) ///peek
+Caixa espiaP(Pilha *p) ///peek
 {
-    string valor = ""; //inicializar a variável valor, a qual será retornada
+    Caixa valor; //inicializar a variável valor, a qual será retornada
 
     if (vaziaP(p)==false)
     {
@@ -128,24 +129,24 @@ void mostraP(Pilha *p)
     cout << "TOPO: " << p->topo << endl;
     if(vaziaP(p) == false)
     {
-        cout << "   ------------" << endl;
+        cout << "   --------" << endl;
         for(int i = p->topo; i > p->base; i--){
 
             cout << setfill(' ') << std::setw(3) << i << "|";
-            cout << setfill(' ') << std::setw(10) << p->dados[i] << "|" << endl;
-            cout << "   ------------" << endl;
+            cout << setfill(' ') << std::setw(2) << p->dados[i].codigo << "|" << p->dados[i].peso << endl;
+            cout << "   --------" << endl;
         }
     }
 }
 
 /// retorna true se o valor existe na pilha
 /// retorna false se o valor não existe na pilha
-bool buscaP(Pilha *p, string valor)
+bool buscaP(Pilha *p, Caixa valor)
 {
 
    for(int i = p->topo ; i > p->base; i--)
    {
-       if (valor == p->dados[i])
+       if (valor.codigo == p->dados[i].codigo)
           return true;
    }
    return false;
