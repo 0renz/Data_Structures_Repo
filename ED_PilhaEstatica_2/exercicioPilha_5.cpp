@@ -18,13 +18,15 @@ o Sair do programa
 
 */
 
-#include "pilhas/pilhaCaixa.hpp"
+
 
 struct Caixa
 {
     int codigo;
     float peso;
 };
+
+#include "pilhas/pilhaCaixa.hpp"
 
 
 int main(void)
@@ -33,18 +35,18 @@ int main(void)
     srand(time(NULL));
 
     int escolha = -1;
-    Pilha pl;
+    Pilha p;
     int tamPilha, valor;
+    Caixa c;
 
     do
     {
         system("cls");
         cout << "0 - Sair";
-        cout << "\n1 - ";
-        cout << "\n2 - ";
-        cout << "\n3 - ";
-        cout << "\n4 - ";
-        cout << "\n5 - ";
+        cout << "\n1 - Definir qtd/caixa";
+        cout << "\n2 - Carregar caixa";
+        cout << "\n3 - Descarregar caixa";
+        cout << "\n4 - Mostrar carga";
         cout << endl << endl;
 
         cin >> escolha;
@@ -52,27 +54,32 @@ int main(void)
         switch(escolha)
         {
         case 1:
-
+            int qtdCaixas;
+            cout << "Digite a quantidade de caixas: ";
+            cin >> qtdCaixas;
+            inicializaP(&p, qtdCaixas);
             system("pause");
             break;
         case 2:
+            cout << "Digite o código da caixa: ";
+            cin >> c.codigo;
+            cout << "\nDigite o peso da caixa: ";
+            cin >> c.peso;
 
+            empilhaP(&p, c);
             system("pause");
             break;
         case 3:
-
+            desempilhaP(&p);
             system("pause");
             break;
         case 4:
-
-            system("pause");
-            break;
-        case 5:
-
+            mostraP(&p);
             system("pause");
             break;
         }
     }
     while (escolha != 0);
+    destroiP(&p);
 }
 

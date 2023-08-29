@@ -21,46 +21,41 @@ int main(void)
     srand(time(NULL));
 
     Pilha p;
-
-    string exp;
     bool balanceada = true;
+    string exp;
 
     cout << "Digite uma expressão matemática: ";
     getline(cin, exp);
 
     inicializaP(&p, exp.size());
+
     for (int i = 0; i < exp.size(); i++)
     {
-        cout << "a";
         if(exp[i] == '(')
         {
             empilhaP(&p, exp[i]);
-            mostraP(&p);
             system("pause");
         }
-
-
-        if(exp[i] == ')')
+        else if(exp[i] == ')')
         {
             if (vaziaP(&p))
             {
-                balanceada = false;
-                break;
+                cout << "A expressão não está balanceada.";
+                return 0;
             }
-
             desempilhaP(&p);
-            cout << "Desempilhou";
             system("pause");
         }
-
     }
 
-    if(vaziaP(&p))
+    if (vaziaP(&p))
+                balanceada = true;
+    else
+        balanceada = false;
+
+    if(balanceada)
         cout << "A expressão está balanceada.";
     else
         cout << "A expressão não está balanceada.";
 }
-
-
-
 
