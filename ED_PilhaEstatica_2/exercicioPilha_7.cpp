@@ -80,13 +80,19 @@ void intercala (Pilha *p1, int tam1, Pilha *p2, int tam2)
         int valor = desempilhaP(p1);
         if (valor == 0)
             continue;
+        else
         empilhaP(&p3, valor);
         i++;
 
+        valor = desempilhaP(p2);
         if (valor == 0)
             continue;
-        valor = desempilhaP(p2);
-        empilhaP(&p3, valor);
+        else
+            empilhaP(&p3, valor);
     }
+
+    while(!cheiaP(&p3))
+        empilhaP(&p3, 0);
+
     mostraP(&p3);
 }

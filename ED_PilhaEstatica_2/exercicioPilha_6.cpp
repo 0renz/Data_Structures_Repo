@@ -37,23 +37,23 @@ void binario(Pilha *p, int num)
     int cont = 0;
     int auxNum = num;
 
-    while((auxNum / 2 != 0) || (auxNum / 2 != 0))
+    while((auxNum / 2 != 0))
     {
         auxNum = auxNum / 2;
         cont++;
 
-        if((auxNum / 2 == 0) || (auxNum / 2 == 0))
+        if((auxNum / 2 == 0))
             cont++;
     }
 
     inicializaP(p, cont);
 
-    while((num / 2 != 0) || (num / 2 != 0))
+    while((num / 2 != 0))
     {
         empilhaP(p, (num % 2));
         num = num / 2;
 
-        if((num / 2 == 0) || (num / 2 == 0))
+        if((num / 2 == 0))
             empilhaP(p, (num));
     }
 
