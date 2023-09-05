@@ -22,27 +22,20 @@ int main(void)
     setlocale(LC_ALL, "Portuguese");
     srand(time(NULL));
 
-    bool escolha = false;
-    float num;
-    char continuar;
+    int tam, valor;
 
     Pilha P;
 
-    do
+    cout << "Tamanho da pilha: ";
+    cin >> tam;
+
+    for (int i = 0; i < tam; i++)
     {
         system("cls");
-        cout << "Digite números: ";
-        cin >> num;
-
-        empilhaP(&P, num);
-        cout << "Continuar? (S/N): ";
-        cin >> continuar;
-
-        if(continuar == 'n')
-            escolha = true;
-
+        cout << "Digite os valores da pilha: ";
+        cin >> valor;
+        empilhaP(&P, valor);
     }
-    while(!escolha);
 
     ordenar(&P);
 }
@@ -50,17 +43,29 @@ int main(void)
 void ordenar(Pilha *ORD)
 {
     Pilha AUX;
-    int numAux, numAux2, numAux3;
-    mostraP(ORD);
+    int valorORD, valorAUX;
 
     //laço, inserção, outro laço
 
     while(!vaziaP(ORD))
     {
+        valorORD = desempilhaP(ORD);
+
+        while (!vaziaP(&AUX) && espiaP(&AUX) > valorORD)
+        {
+            valorAUX = desempilhaP(&AUX);
+            empilhaP(ORD, valorAUX);
+        }
+        empilhaP(&AUX, valorORD);
 
     }
 
+    while(!vaziaP(&AUX))
+    {
+        valorAUX = desempilhaP(&AUX);
+        empilhaP(ORD, valorAUX);
+    }
+
     mostraP(ORD);
-    mostraP(&AUX);
 }
 
