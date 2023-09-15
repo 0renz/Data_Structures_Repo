@@ -8,23 +8,47 @@ Crie um programa para verificar se uma cadeia de caracteres é palíndroma. Uma ca
 para implementar o programa.
 */
 
-#include "filas/filacircular.hpp"
-#include "pilhas/pilha-dinamica.hpp"
+#include "filas/filacircular-char.hpp"
+#include "pilhas/pilha-dinamica-char.hpp"
 
 int main(void)
 {
     setlocale(LC_ALL, "Portuguese");
     string palavra;
+    char cFila, cPilha;
+    Pilha p;
+    Fila f;
+    bool palindromo = true;
 
     cout << "Digite uma cadeia de caracteres: ";
-    cin.ignore();
     getline(cin, palavra);
 
-    for(int i = 0; i < palavra.length(); i++)
+    inicializaF(&f, palavra.length());
+
+    for (int i = 0; i < palavra.length(); i++)
     {
-        cout << palavra[i] << endl;
+      enfileiraF(&f, palavra[i]);
+      empilhaP(&p, palavra[i]);
     }
 
+    for (int i = 0; i < palavra.length(); i++)
+    {
+        cFila = desenfileiraF(&f);
+        cPilha = desempilhaP(&p);
+
+        if (cFila != cPilha)
+            palindromo = false;
+    }
+
+    if (palindromo)
+    {
+        cout << "Essa palavra é um palíndromo.";
+    }
+    else
+        cout << "Essa palavra não é um palíndromo";
+
+    destroiF(&f);
+    destroiP(&p);
 
 }
 
