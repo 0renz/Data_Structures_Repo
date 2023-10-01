@@ -12,13 +12,13 @@ O menu deve conter as seguintes opções:
 */
 
 #include "filas/fila-dinamica.hpp"
+#include "pilhas/pilha-dinamica.hpp"
 
-void inverteF(NoFila *no, Fila *f);
+bool inverteF(Fila *f);
 
 int main()
 {
     setlocale(LC_ALL, "Portuguese");
-    Fila NoFila *no;
 
     int escolha = -1;
     Fila f;
@@ -51,11 +51,11 @@ int main()
             break;
         case 3:
             mostraF(&f);
-            cout << "\n";
             system("pause");
             break;
         case 4:
-            inverteF(no, &f);
+            if(inverteF(&f))
+                mostraF(&f);
             system("pause");
             break;
         }
@@ -63,20 +63,25 @@ int main()
     } while (escolha != 0);
 }
 
-void inverteF(NoFila *no, Fila *f)
+bool inverteF(Fila *f)
 {
+    Pilha p;
+
     if(vaziaF(f))
     {
         cout << "Fila vazia!" << endl;
-        return;
+        return false;
     }
-    while (no->prox == nullptr)
+    else
     {
-        cout << "[" << no->prox << "] ";
-        desenfileiraF(f);
+        while(!vaziaF(f))
+        {
+            empilhaP(&p, desenfileiraF(f));
+        }
+        while(!vaziaP(&p))
+        {
+            enfileiraF(f, desempilhaP(&p));
+        }
     }
-
-
-
-    cout << "\n";
+    return true;
 }
