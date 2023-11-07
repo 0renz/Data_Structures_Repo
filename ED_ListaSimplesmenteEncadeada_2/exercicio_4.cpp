@@ -32,6 +32,11 @@ int main(void)
     insereInicioL(&L, 5);
     insereInicioL(&L, 4);
     insereFinalL(&L, 6);
+    insereFinalL(&L, 7);
+    insereFinalL(&L, 15);
+    insereFinalL(&L, 0);
+    insereFinalL(&L, -5);
+    insereFinalL(&L, 100);
 
     mostraL(&L);
     ordenarL(&L);
@@ -44,22 +49,31 @@ void ordenarL(No<int>** lista)
     int numAux;
     int trocas;
 
+    if(vaziaL(lista))
+    {
+        cout << "Lista vazia." << endl;
+        return;
+    }
+
     do
     {
         trocas = 0;
-        for (int i = 0; i < totalL(lista); i++)
+        while (n != NULL)
         {
-            if (n->dado < n->prox->dado)
+            if (n->prox != NULL)
             {
-                numAux = n->dado;
-                n->dado = n->prox->dado;
-                n->prox->dado = numAux;
-                trocas++;
-                cout << "a";
+                if (n->dado < n->prox->dado)
+                {
+                    numAux = n->dado;
+                    n->dado = n->prox->dado;
+                    n->prox->dado = numAux;
+                    trocas++;
+                }
             }
             n = n->prox;
         }
+        n = *lista; // reiniciar o ponteiro
     }
-    while (trocas != 0);
+    while (trocas > 0);
 
 }

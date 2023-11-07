@@ -23,11 +23,14 @@ int main(void)
     No<int> *L; // cria o primeiro nó
     inicializaL(&L);
 
-    insereOrdenado(&L, 5);
-    insereOrdenado(&L, 3);
-    insereOrdenado(&L, 2);
+
     insereOrdenado(&L, 4);
-    insereOrdenado(&L, 15);
+    insereOrdenado(&L, 2);
+    insereOrdenado(&L, 1);
+    insereOrdenado(&L, 8);
+    insereOrdenado(&L, 3);
+
+    mostraL(&L);
 
     return EXIT_SUCCESS;
 }
@@ -36,18 +39,25 @@ void insereOrdenado(No<int>** lista, int valor)
 {
     No<int> *n = *lista;
     No<int> *novo = new No<int>();
-
     novo->dado = valor;
+    No<int> *aux = new No<int>();
 
-    if (n == NULL)
-        n = novo;
-    else if (n->prox == NULL)
+    int valorAux;
+
+    if(n == NULL || valor < n->dado)
     {
-        n->prox = novo;
-        novo->prox = NULL;
+        novo->prox = *lista;
+        *lista = novo;
+        return;
     }
 
-    mostraL(lista);
+    while (n != NULL && novo->dado > n->dado)
+    {
+        aux = n;
+        n = n->prox;
+    }
+
+    // Atualizar ponteiros para inserir o novo nó no meio
+    aux->prox = novo;
+    novo->prox = n;
 }
-
-

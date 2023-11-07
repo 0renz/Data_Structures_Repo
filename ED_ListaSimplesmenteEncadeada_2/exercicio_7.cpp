@@ -12,6 +12,7 @@ L3: 5 9 6 1
 */
 
 void intersec(No<int>** L1, No<int>** L2);
+bool encontraL2(No<int>*** L2, int dado);
 
 int main(void)
 {
@@ -29,12 +30,16 @@ int main(void)
     insereInicioL(&L1, 3);
     insereInicioL(&L1, 2);
     insereInicioL(&L1, 1);
+    insereInicioL(&L1, 6);
+    insereInicioL(&L1, 13);
 
     insereInicioL(&L2, 5);
+    insereInicioL(&L2, 13);
     insereInicioL(&L2, 4);
     insereInicioL(&L2, 8);
     insereInicioL(&L2, 1);
     insereInicioL(&L2, 7);
+    insereInicioL(&L2, 2);
 
     mostraL(&L1);
     mostraL(&L2);
@@ -46,27 +51,30 @@ int main(void)
 void intersec(No<int>** L1, No<int>** L2)
 {
     No<int> *n1 = *L1;
-    No<int> *n2 = *L2;
-
-    No<int> *L3; // cria o primeiro nó
+    No<int> *L3;
     inicializaL(&L3);
-    mostraL(&L3);
 
     for (int i = 0; i < totalL(L1); i++)
     {
-        for (int j = 0; j < totalL(L2); j++)
+        if (encontraL2(&L2, n1->dado))
         {
-            if (n1->dado == n2->dado)
-            {
-                insereInicioL(&L3, n1->dado);
-                mostraL(&L3);
-            }
-            n2 = n2->prox;
+            insereInicioL(&L3, n1->dado);
         }
         n1 = n1->prox;
     }
-
+    mostraL(&L3);
 }
 
+bool encontraL2(No<int>*** L2, int dado)
+{
+    No<int> *n2 = **L2;
 
+    for (int i = 0; i < totalL(*L2); i++)
+    {
+        if(n2->dado == dado)
+            return true;
 
+        n2 = n2->prox;
+    }
+    return false;
+}
