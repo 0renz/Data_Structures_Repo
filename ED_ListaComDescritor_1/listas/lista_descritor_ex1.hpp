@@ -5,7 +5,7 @@
 
 struct No
 {
-    Funcionario dado;
+    Funcionario dado; ///
     struct No *prox;
     No() // construtor
     {
@@ -80,9 +80,9 @@ void destroiL(Lista *lista)
     lista->tamanho = 0;
 }
 
-Funcionario leInicio(Lista *lista)
+Funcionario leInicio(Lista *lista) ///
 {
-    Funcionario doInicio;
+    Funcionario doInicio; ///
 
     if(lista->inicio == NULL)
     {
@@ -94,9 +94,9 @@ Funcionario leInicio(Lista *lista)
     return doInicio;
 }
 
-Funcionario leFim(Lista *lista)
+Funcionario leFim(Lista *lista) ///
 {
-    Funcionario doFim;
+    Funcionario doFim; ///
 
     if(lista->inicio == NULL)
     {
@@ -108,9 +108,9 @@ Funcionario leFim(Lista *lista)
     return doFim;
 }
 
-Funcionario removeInicio(Lista *lista)
+Funcionario removeInicio(Lista *lista) ///
 {
-    Funcionario removido;
+    Funcionario removido; ///
     No *aux;
 
     if(lista->inicio == NULL)
@@ -264,7 +264,7 @@ bool removeL(Lista *lista, Funcionario valor)
 
 }
 
-No* buscaL(Lista *lista, Funcionario valor)
+No* buscaL(Lista *lista, Funcionario valor) ///
 {
     No *n = lista->inicio;
     while (n)
@@ -278,6 +278,7 @@ No* buscaL(Lista *lista, Funcionario valor)
     return nullptr;
 }
 
+/// exclusivos para funcionarios
 float mediaFuncionario(Lista *lista)
 {
     float media = 0.0;
@@ -311,11 +312,12 @@ void nomeMenorMedia(Lista *lista)
         n = n->prox;
     }
 }
+/// exclusivos para funcionarios
 
 void ordena(Lista *lista)
 {
     No *n = lista->inicio;
-    Funcionario fAux;
+    Funcionario fAux; ///
     int trocas;
 
     if(n == NULL)
@@ -326,7 +328,7 @@ void ordena(Lista *lista)
         trocas = 0;
         while(n->prox != NULL)
         {
-            if (n->dado.nome > n->prox->dado.nome)
+            if (n->dado.nome > n->prox->dado.nome) /// ?
             {
                 fAux = n->dado;
                 n->dado = n->prox->dado;
@@ -342,9 +344,6 @@ void ordena(Lista *lista)
 
 void inverteLista(Lista *lista)
 {
-    // Inverter lista -> para implementar, use uma lista auxiliar e as funções insere fim, insere início, remove
-    //fim, remove início.
-
     No *n = lista->inicio;
 
     if(n == NULL)
@@ -368,13 +367,108 @@ void mostraOrdenadoIdade (Lista *lista)
     /// jogar desordenado na lista auxiliar e depois ordenar
 
     No *n = lista->inicio;
-    Funcionario fAux, fAuxMaior;
+    Funcionario fAux, fAuxMaior; ///
     int trocas;
     Lista listaAux = Lista();
 
     if(n == NULL)
         cout << "Lista vazia";
 
+
+}
+
+Lista uniao (Lista *lista, Lista *lista2)
+{
+    Lista lista3 = Lista();
+    Lista listaAux = Lista();
+
+    Funcionario fAux; ///
+
+
+    if(vaziaL(lista) && vaziaL(lista2))
+    {
+        cout << "Listas vazias";
+        return lista3;
+    }
+
+    while (!vaziaL(lista))
+    {
+        fAux = removeInicio(lista);
+        insereInicioL(&lista3, fAux);
+        insereInicioL(&listaAux, fAux);
+    }
+
+    while (!vaziaL(&listaAux))
+        insereInicioL(lista, removeInicio(&listaAux));
+
+    while (!vaziaL(lista2))
+    {
+        fAux = removeInicio(lista2);
+        insereInicioL(&lista3, fAux);
+        insereInicioL(&listaAux, fAux);
+    }
+
+    while (!vaziaL(&listaAux))
+        insereInicioL(lista2, removeInicio(&listaAux));
+
+    return lista3;
+
+}
+
+bool repetido(Lista *lista3, Funcionario fAux)
+{
+    No *n3 = lista3->inicio;
+
+    if (n3 == NULL)
+        return false;
+
+    while (n3 != NULL)
+    {
+        if (n3->dado.nome == fAux.nome)
+            return true;
+
+        n3 = n3->prox;
+    }
+    return false;
+}
+
+Lista intersec (Lista *lista, Lista *lista2)
+{
+    Lista lista3 = Lista();
+    Lista listaAux = Lista();
+    Lista listaAux2 = Lista();
+
+    Funcionario fAux; ///
+
+    No *n = lista->inicio;
+    No *n2 = lista2->inicio;
+
+    if(n == NULL && n2 == NULL)
+    {
+        cout << "Listas vazias";
+        return lista3;
+    }
+
+    while (!vaziaL(lista))
+    {
+        fAux = removeInicio(lista);
+        while (n2 != NULL)
+        {
+            if (n->dado.nome == fAux.nome && !repetido(&lista3, fAux))
+            {
+                insereInicioL(&lista3, fAux);
+                cout << "a";
+            }
+            n2 = n2->prox;
+        }
+        n2 = lista2->inicio;
+        insereFimL(&listaAux, fAux);
+    }
+
+    while (!vaziaL(&listaAux))
+        insereInicioL(lista, removeInicio(&listaAux));
+
+    return lista3;
 
 }
 

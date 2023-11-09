@@ -92,12 +92,35 @@ int main(void)
     inverteLista(&lista);
     cout << lista;
 
+    /*
     cout << "\n\nLista ordenada pela idade: ";
     inverteLista(&lista);
     cout << lista;
+    */
 
+    Lista lista2 = Lista();
+    for (int i = 0; i < 5; i++)
+        insereInicioL(&lista2, f);
+
+    Lista listaUniao = Lista();
+
+    cout << "\n\nUnião: ";
+    listaUniao = uniao(&lista, &lista2);
+    cout << listaUniao << endl;
+    cout << lista << endl;
+    cout << lista2 << endl;
+
+
+    Lista listaIntersec = Lista();
+    cout << "\nIntersecção: ";
+    listaIntersec = intersec(&lista, &lista2);
+    cout << listaIntersec << endl;
+    cout << lista << endl;
+    cout << lista2 << endl;
 
     destroiL(&lista);
+    destroiL(&lista2);
+    destroiL(&listaUniao);
     return EXIT_SUCCESS;
 }
 
