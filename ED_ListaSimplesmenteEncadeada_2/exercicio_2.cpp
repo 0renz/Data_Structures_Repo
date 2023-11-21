@@ -43,6 +43,11 @@ int main(void)
     insereInicioL(&ListaSenhas, senha);
     senha = "123";
     insereInicioL(&ListaSenhas, senha);
+    senha = "AAA11022";
+    insereInicioL(&ListaSenhas, senha);
+    senha = "AAA11022";
+    insereInicioL(&ListaSenhas, senha);
+
 
 
     mostraL(&ListaSenhas);
@@ -62,7 +67,7 @@ void senhasFracas(No<string> **ListaSenhas)
     for (int i = 0; i < totalL(ListaSenhas); i++)
     {
         senha = removeInicioL(ListaSenhas);
-        if (senha.length() < 4 || (buscaQuantidade(&ListaSenhas, senha) > 5))
+        if (senha.length() < 4 || (buscaQuantidade(&ListaSenhas, senha) >= 5))
         {
             if (buscaL(&senhasFracas, senha) == NULL)
             {

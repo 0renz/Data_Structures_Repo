@@ -328,7 +328,7 @@ void ordena(Lista *lista)
         trocas = 0;
         while(n->prox != NULL)
         {
-            if (n->dado.nome > n->prox->dado.nome) /// ?
+            if (n->dado.nome > n->prox->dado.nome)
             {
                 fAux = n->dado;
                 n->dado = n->prox->dado;
@@ -361,19 +361,48 @@ void inverteLista(Lista *lista)
 
 void mostraOrdenadoIdade (Lista *lista)
 {
-    // Mostrar a lista ordenada pela idade dos funcionários: para implementar, use uma lista auxiliar para
-    //armazenar os funcionários ordenados e, em seguida, mostre a lista auxiliar.
-
-    /// jogar desordenado na lista auxiliar e depois ordenar
-
     No *n = lista->inicio;
-    Funcionario fAux, fAuxMaior; ///
-    int trocas;
+    Lista listaOrdenada = Lista();
     Lista listaAux = Lista();
+    Funcionario fAux;
+    int trocas;
 
     if(n == NULL)
         cout << "Lista vazia";
 
+
+    while (!vaziaL(lista))
+    {
+        fAux = removeInicio(lista);
+        insereFimL(&listaOrdenada, fAux);
+        insereFimL(&listaAux, fAux);
+    }
+
+    No *nOrd = listaOrdenada.inicio;
+    do
+    {
+        trocas = 0;
+        while(nOrd->prox != NULL)
+        {
+            if (nOrd->dado.idade > nOrd->prox->dado.idade)
+            {
+                fAux = nOrd->dado;
+                nOrd->dado = nOrd->prox->dado;
+                nOrd->prox->dado = fAux;
+                trocas++;
+            }
+            nOrd = nOrd->prox;
+        }
+        nOrd = listaOrdenada.inicio;
+    }
+    while (trocas != 0);
+
+    while (!vaziaL(&listaAux))
+    {
+        fAux = removeInicio(&listaAux);
+        insereFimL(lista, fAux);
+    }
+    cout << listaOrdenada << endl;
 
 }
 
@@ -436,7 +465,6 @@ Lista intersec (Lista *lista, Lista *lista2)
 {
     Lista lista3 = Lista();
     Lista listaAux = Lista();
-    Lista listaAux2 = Lista();
 
     Funcionario fAux; ///
 
@@ -454,10 +482,9 @@ Lista intersec (Lista *lista, Lista *lista2)
         fAux = removeInicio(lista);
         while (n2 != NULL)
         {
-            if (n->dado.nome == fAux.nome && !repetido(&lista3, fAux))
+            if (n2->dado == fAux && !repetido(&lista3, fAux))
             {
                 insereInicioL(&lista3, fAux);
-                cout << "a";
             }
             n2 = n2->prox;
         }
