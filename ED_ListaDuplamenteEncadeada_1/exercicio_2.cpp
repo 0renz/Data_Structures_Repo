@@ -18,8 +18,10 @@ int main(void)
 
     No* aux = nullptr;
     Lista lista = Lista();
-    Lista listadosxmaioresordenados = Lista();
+    Lista MaioresOrdenados = Lista();
 
+    /// TESTE REMOVE TODOS + REMOVE UM SÓ
+    /*
     for (int i = 0; i < 5; i++)
         insereInicioL(&lista, i);
 
@@ -29,14 +31,28 @@ int main(void)
     mostraL(&lista);
     removeTodos(&lista, 4);
     mostraL(&lista);
+
+    removeL(&lista, 3);
+    mostraL(&lista);
+    removeL(&lista, 1);
+    mostraL(&lista);
+    */
+
+    /// TESTE RETORNA OS K MAIORES QUE L ORDENADOS
+
+    mostraL(&lista);
     insereFinalL(&lista, 1);
     insereFinalL(&lista, 4);
     insereFinalL(&lista, 8);
     insereFinalL(&lista, 100);
+    cout << "Lista: ";
     mostraL(&lista);
     cout << "-----------" << endl;
 
-    listadosxmaioresordenados = leMaiores(&lista, 5);
+    MaioresOrdenados = leMaiores(&lista, 3);
+    cout << "3 Maiores elementos ordenados: ";
+    mostraL(&MaioresOrdenados);
+
 
     destroiL(&lista);
     return EXIT_SUCCESS;

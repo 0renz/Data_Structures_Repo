@@ -1,6 +1,8 @@
 #include <iostream>
+#include <string>
+#include <fstream>
 using namespace std;
-#include "listas/lista_dupla_string.hpp"
+#include "listas/lista_dupla_generica.hpp"
 
 /*
 a. Inserir no final da lista
@@ -10,50 +12,45 @@ acesse o ponteiro “anterior”.
 Observação: faça uso do descritor da lista para remover ou inserir um novo nó, ou seja, não é
 necessário percorrer a lista.
 */
-void alteraLista(Lista *volta);
 
+void volta(Lista<string> *caminho);
 
 int main(void)
 {
+    ifstream leitura;
+    leitura.open("leitura.txt");
     setlocale(LC_ALL, "Portuguese");
-    Lista caminho = Lista();
+    Lista<string> caminho = Lista<string>();
+    //configurar para ler arquivo texto
 
-    insereInicioL(&caminho, "direita");
-    insereInicioL(&caminho, "direita");
-    insereInicioL(&caminho, "cima");
-    insereInicioL(&caminho, "esquerda");
-    insereInicioL(&caminho, "cima");
-    insereInicioL(&caminho, "cima");
-    insereInicioL(&caminho, "cima");
-    insereInicioL(&caminho, "cima");
-    insereInicioL(&caminho, "direita");
-    insereInicioL(&caminho, "direita");
-    insereInicioL(&caminho, "cima");
-    insereInicioL(&caminho, "direita");
-    insereInicioL(&caminho, "direita");
-    insereInicioL(&caminho, "direita");
-    insereInicioL(&caminho, "baixo");
-    insereInicioL(&caminho, "direita");
-    insereInicioL(&caminho, "cima");
-    insereInicioL(&caminho, "direita");
-    insereInicioL(&caminho, "baixo");
-    insereInicioL(&caminho, "direita");
+    if (leitura.is_open())
+    {
+        string palavra;
+        while(getline(leitura, palavra, ','))
+        {
+            insereFinalL(&caminho, palavra);
+        }
+    }
+    else
+        cout << "Deu ruim";
+
+    cout << "Ida: ";
     mostraL(&caminho);
-
-    Lista volta = Lista();
-    volta = copiaLista(&caminho);
-
-    alteraLista(&volta);
-    cout << endl;
-    mostrarInversoL(&volta);
-
+    cout << "\nVolta: ";
+    volta(&caminho);
     destroiL(&caminho);
     return EXIT_SUCCESS;
 }
 
-void alteraLista(Lista *volta)
+void volta(Lista<string> *caminho)
 {
-     No* n = volta->inicio;
+    Lista<string> ListaVolta = Lista<string>();
+
+    ListaVolta = copiaLista(caminho);
+    No<string>* n = ListaVolta.inicio;
+    // lista aqui é um objeto, mas quando tu passa pra função o
+    // que tu manipula é um ponteiro.
+
     while(n)
     {
         if(n->dado == "direita")
@@ -74,7 +71,5 @@ void alteraLista(Lista *volta)
         }
         n = n->prox;
     }
+    mostrarInversoL(&ListaVolta);
 }
-
-
-

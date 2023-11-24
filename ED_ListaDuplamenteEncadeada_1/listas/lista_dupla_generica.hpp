@@ -1,10 +1,10 @@
 #ifndef _HPP_LISTA_DUPLA
 #define _HPP_LISTA_DUPLA
 
-
+template<typename T>
 struct No
 {
-    string dado;
+    T dado;
     No *prox;
     No *ant;
     No() // construtor
@@ -14,10 +14,11 @@ struct No
     }
 };
 
+template<typename T>
 struct Lista
 {
-    No *inicio;
-    No *fim;
+    No<T> *inicio; /// descritores
+    No<T> *fim;
     int tamanho;
     Lista() /// construtor
     {
@@ -30,16 +31,18 @@ struct Lista
 
 
 /// quando cout receber uma struct No
-ostream& operator<<(ostream& os, const No *n)
+template<typename T>
+ostream& operator<<(ostream& os, const No<T> *n)
 {
     /// cout << n
     return os << n->dado;
 }
 
 /// quanto cout receber uma struct Lista
-ostream& operator << (ostream& os, const Lista &l)
+template<typename T>
+ostream& operator << (ostream& os, const Lista<T> &l)
 {
-    No *n = l.inicio;
+    No<T> *n = l.inicio;
     os << "L[" << l.tamanho << "]:{";
     while(n)
     {
@@ -52,12 +55,13 @@ ostream& operator << (ostream& os, const Lista &l)
     return os;
 }
 
-void destroiL(Lista *l)
+template<typename T>
+void destroiL(Lista<T> *l)
 {
-    No *n = l->inicio;
+    No<T> *n = l->inicio;
     while(n)
     {
-        No *aux = n;
+        No<T> *aux = n;
         n = n->prox;
         delete aux;
     }
@@ -66,7 +70,8 @@ void destroiL(Lista *l)
     l->tamanho = 0;
 }
 
-bool vaziaL(Lista *lista)
+template<typename T>
+bool vaziaL(Lista<T> *lista)
 {
     if(! (lista->inicio) )
         return true;
@@ -74,9 +79,10 @@ bool vaziaL(Lista *lista)
         return false;
 }
 
-void mostraL(Lista *lista)
+template<typename T>
+void mostraL(Lista<T> *lista)
 {
-    No *n = lista->inicio;
+    No<T> *n = lista->inicio;
     cout << "L[" << lista->tamanho << "]:{";
     while(n)
     {
@@ -88,9 +94,10 @@ void mostraL(Lista *lista)
     cout << "}\n";
 }
 
-void mostrarInversoL(Lista *lista)
+template<typename T>
+void mostrarInversoL(Lista<T> *lista)
 {
-    No *n = lista->fim;
+    No<T> *n = lista->fim;
     cout << "L[" << lista->tamanho << "]:{";
     while(n)
     {
@@ -105,10 +112,11 @@ void mostrarInversoL(Lista *lista)
 
 
 ///insere no início da lista
-bool insereInicioL(Lista *lista, string valor)
+template<typename T>
+bool insereInicioL(Lista<T> *lista, T valor)
 {
 
-    No *novo = new No();
+    No<T> *novo = new No<T>();
     if (!novo)
         return false;
 
@@ -127,20 +135,26 @@ bool insereInicioL(Lista *lista, string valor)
     return true;
 }
 
-bool insereFinalL(Lista *lista, string valor)
+template<typename T>
+bool insereFinalL(Lista<T> *lista, T valor)
 {
-    No *novo = new No();
+    No<T> *novo = new No<T>();
     if (!novo)
         return false;
 
     novo->dado = valor;
     novo->prox = nullptr;
-    novo->ant = lista->fim;
 
     if (!lista->fim) //lista vazia?
-        lista->fim = novo;
+    {
+        novo->ant = nullptr;
+        lista->inicio = novo;
+    }
     else
+    {
+        novo->ant = lista->fim;
         lista->fim->prox = novo;
+    }
 
     lista->fim = novo;
     lista->tamanho++;
@@ -148,9 +162,10 @@ bool insereFinalL(Lista *lista, string valor)
     return true;
 }
 
-No* buscaL(Lista *lista, string valor)
+template<typename T>
+No<T>*buscaL(Lista<T> *lista, T valor)
 {
-    No *n = lista->inicio;
+    No<T> *n = lista->inicio;
     while (n)
     {
         if (n->dado == valor)
@@ -162,15 +177,16 @@ No* buscaL(Lista *lista, string valor)
     return nullptr;
 }
 
-string removerPrimeiroNoL(Lista *lista)
+template<typename T>
+int removerPrimeiroNoL(Lista<T> *lista)
 {
     if(!lista || vaziaL(lista))
         return 0;
 
-    string dado = lista->inicio->dado;
+    No<T> *aux = lista->inicio;
+    int dado = lista->inicio->dado;
 
     lista->inicio = lista->inicio->prox;
-    lista->inicio->ant = nullptr;
 
     if (!lista->inicio) ///lista ficou vazia ?
         lista->fim = nullptr;
@@ -179,19 +195,21 @@ string removerPrimeiroNoL(Lista *lista)
 
     /// libera a memória do elemento
     lista->tamanho--;
+    delete aux;
     return dado;
 }
 
-string removerUltimoNoL(Lista *lista)
+template<typename T>
+int removerUltimoNoL(Lista<T> *lista)
 {
     if(!lista || vaziaL(lista))
         return 0;
 
-    string dado = lista->fim->dado;
-
-    No *aux = lista->fim;
+    No<T> *aux = lista->fim;
+    int dado = lista->fim->dado;
 
     lista->fim = lista->fim->ant;
+
     if (lista->fim)
         lista->fim->prox = nullptr;
     else
@@ -203,7 +221,8 @@ string removerUltimoNoL(Lista *lista)
     return dado;
 }
 
-bool removerNoL(Lista *lista, No *no)
+template<typename T>
+bool removerNoL(Lista<T> *lista, No<T> *no)
 {
     if(!no || !lista || vaziaL(lista))
         return false;
@@ -254,9 +273,10 @@ bool encontraValor(Lista *lista, int valor)
 }
 */
 
-bool removeL(Lista *lista, string valor)
+template<typename T>
+bool removeL(Lista<T> *lista, T valor)
 {
-    No* no = buscaL(lista, valor);
+    No<T>* no = buscaL(lista, valor);
 
     if(!no)
         return false;
@@ -266,7 +286,8 @@ bool removeL(Lista *lista, string valor)
     return true;
 }
 
-bool removeTodos(Lista *lista, string valor)
+template<typename T>
+bool removeTodos(Lista<T> *lista, T valor)
 {
     while(removeL(lista, valor))
     {
@@ -276,15 +297,16 @@ bool removeTodos(Lista *lista, string valor)
     return true;
 }
 
-void ordenaLista(Lista *lista)
+template<typename T>
+void ordenaLista(Lista<T> *lista)
 {
-    No *n = lista->inicio;
-    string Aux; ///
+    No<T> *n = lista->inicio;
+    T Aux; ///
     int trocas;
 
     if(n == NULL)
     {
-       cout << "Lista vazia";
+        cout << "Lista vazia";
     }
 
 
@@ -307,54 +329,41 @@ void ordenaLista(Lista *lista)
     while (trocas != 0);
 }
 
-Lista copiaLista(Lista *lista)
+template<typename T>
+Lista<T> copiaLista(Lista<T> *lista)
 {
-    Lista listaAux = Lista();
-    Lista listaAux2 = Lista();
-    string aux;
+    Lista<T> listaCopia = Lista<T>();
+    T aux = "";
 
-    while(!vaziaL(lista))
+    No<T> *n = lista->inicio;
+
+    while(n)
     {
-        insereInicioL(&listaAux, removerUltimoNoL(lista));
+        aux = n->dado;
+        insereFinalL(&listaCopia, aux);
+        n = n->prox;
     }
-    while(!vaziaL(&listaAux))
-    {
-        aux = removerUltimoNoL(&listaAux);
-        insereInicioL(lista, aux);
-        insereInicioL(&listaAux2, aux);
-    }
-    return listaAux2;
+
+    return listaCopia;
 }
 
-Lista leMaiores(Lista *lista, int qtd)
+template<typename T>
+Lista<T> leMaiores(Lista<T> *lista, int qtd)
 {
-    Lista listaAux = Lista();
+    Lista<T> listaAux = Lista<T>();
     listaAux = copiaLista(lista);
-    mostraL(lista);
-    mostraL(&listaAux);
     ordenaLista(&listaAux);
-    mostraL(&listaAux);
 
     int cont = 0;
-    Lista listaDosMaiores= Lista();
-
+    Lista<T> listaDosMaiores= Lista<T>();
 
     while (cont != qtd)
     {
-       mostraL(&listaAux);
-       insereFinalL(&listaDosMaiores, removerPrimeiroNoL(&listaAux));
-       mostraL(&listaDosMaiores);
-       cont++;
+        insereFinalL(&listaDosMaiores, removerPrimeiroNoL(&listaAux));
+        cont++;
     }
-
-    mostraL(&listaDosMaiores);
-
     return listaDosMaiores;
 }
-
-
-
-
 #endif // _HPP_LISTA_DUPLA
 
 
