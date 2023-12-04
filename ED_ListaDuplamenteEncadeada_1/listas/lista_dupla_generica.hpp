@@ -364,6 +364,58 @@ Lista<T> leMaiores(Lista<T> *lista, int qtd)
     }
     return listaDosMaiores;
 }
+
+template<typename T>
+bool insereOrdenadoL(Lista<T> *lista, T valor)
+{
+    No<T> *novo = new No<T>();
+    if (!novo)
+        return false;
+
+    novo->dado = valor;
+
+    if (vaziaL(lista) || valor < lista->inicio->dado)
+    {
+        // Inserção no início da lista ou em lista vazia
+        novo->prox = lista->inicio;
+        novo->ant = nullptr;
+        if (!lista->fim)
+            lista->fim = novo;
+        else
+            lista->inicio->ant = novo;
+
+        lista->inicio = novo;
+        lista->tamanho++;
+        return true;
+    }
+
+    No<T> *anterior = nullptr;
+    No<T> *atual = lista->inicio;
+
+    // Encontrar a posição de inserção
+    while (atual && valor > atual->dado)
+    {
+        anterior = atual;
+        atual = atual->prox;
+    }
+
+    // Inserir o novo elemento
+    novo->prox = atual;
+    novo->ant = anterior;
+
+    if (atual)
+        atual->ant = novo;
+    else
+        lista->fim = novo;
+
+    if (anterior)
+        anterior->prox = novo;
+    else
+        lista->inicio = novo;
+
+    lista->tamanho++;
+    return true;
+}
 #endif // _HPP_LISTA_DUPLA
 
 

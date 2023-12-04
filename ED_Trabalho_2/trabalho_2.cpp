@@ -113,7 +113,7 @@ int main(void)
                         cout << "L2 (C): ";
                         if (!vaziaL(&L2))
                         {
-                            LAux = copiaLista(&L1);
+                            LAux = copiaLista(&L2);
                             ordenaCrescente(&LAux);
                             mostraL(&LAux);
                         }
@@ -168,10 +168,12 @@ int main(void)
                 if (lista == "L1")
                 {
                     removeTodos(&L1);
+                    cout << "Todos os valores de L1 foram removidos" << endl;
                 }
                 else if (lista == "L2")
                 {
                     removeTodos(&L2);
+                    cout << "Todos os valores de L2 foram removidos" << endl;
                 }
             }
             else if (operacao == "mediana")
@@ -180,28 +182,15 @@ int main(void)
 
                 if (lista == "L1")
                 {
-                    if (!vaziaL(&L1))
-                    {
-                        cout << "Mediana L1: ";
-                        mediana(&L1);
-                    }
-                    else
-                    {
-                        cout << "Lista vazia";
-                    }
+                    cout << "Mediana L1: ";
+                    mediana(&L1);
 
                 }
                 else if (lista == "L2")
                 {
-                    if (!vaziaL(&L2))
-                    {
-                        cout << "Mediana L2: ";
-                        mediana(&L2);
-                    }
-                    else
-                    {
-                        cout << "Lista vazia";
-                    }
+                    cout << "Mediana L2: ";
+                    mediana(&L2);
+
                 }
             }
             else if (operacao == "moda")
@@ -215,7 +204,7 @@ int main(void)
                     }
                     else
                     {
-                        cout << "Lista vazia";
+                        cout << "Moda L1: VAZIA" << endl;
                     }
 
                 }
@@ -228,7 +217,7 @@ int main(void)
                     }
                     else
                     {
-                        cout << "Lista vazia";
+                        cout << "Moda L2: VAZIA" << endl;
                     }
                 }
             }
@@ -262,10 +251,17 @@ void mostraDif(Lista<int> *L1, Lista<int> *L2)
             n2 = n2->prox;
         }
 
+        if (encontrou == false)
+            insereInicioL(&listaAux, n1->dado);
+
         n2 = L2->inicio;
         n1 = n1->prox;
     }
-    mostraL(&listaAux);
+
+    if(!vaziaL(&listaAux))
+        mostraL(&listaAux);
+    else
+        cout << "VAZIA" << endl;
 }
 
 void mediana(Lista<int> *L)
@@ -273,9 +269,15 @@ void mediana(Lista<int> *L)
     int lugar;
     int cont = 0;
 
+    if (vaziaL(L))
+    {
+        cout << "Erro ao calcular mediana, lista vazia!" << endl;
+        return;
+    }
+
+
     Lista<int> listaAux = Lista<int>();
     listaAux = copiaLista(L);
-    cout << "LISTA AUX: ";
     ordenaDecrescente(&listaAux);
     No<int> *n = listaAux.inicio;
 
@@ -366,13 +368,14 @@ void moda(Lista<int> *L)
 
     maiorFreq = maiorFrequencia(&listaFrequencia);
 
-    cout << "Lista elementos: ";
-    mostraL(L);
-    cout << "Lista frequencia: ";
-    mostraL(&listaFrequencia);
-    cout << "Maior frequencia: " << maiorFreq << endl;
+    if (maiorFreq <= 1)
+    {
+        cout << "Lista vazia";
+        return;
+    }
 
     No<int> *n2 = listaFrequencia.inicio;
+
     while(n2)
     {
         if (n2->dado == maiorFreq && !buscaL(&listaModas, n->dado))
@@ -383,8 +386,6 @@ void moda(Lista<int> *L)
         n = n->prox;
     }
 
-    cout << "Moda: ";
     mostraL(&listaModas);
-    cout << endl;
 }
 

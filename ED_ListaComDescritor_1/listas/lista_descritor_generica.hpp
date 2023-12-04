@@ -61,7 +61,7 @@ void mostraL(Lista<T> *lista)
     cout << "L:{";
     while(n != NULL ) /// enquanto n não for NULL fica no laço
     {
-        cout << n->dado.codigo;
+        cout << n->dado;
         n = n->prox;
 
         if(n != NULL)
@@ -432,6 +432,49 @@ Lista<T> intersec (Lista<T> *lista, Lista<T> *lista2)
 
     return lista3;
 
+}
+
+template<typename T>
+bool insereOrdenadoL(Lista<T> *lista, T valor)
+{
+    No<T> *novo = new No<T>();
+    if (novo == nullptr)
+        return false;
+
+    novo->dado = valor;
+
+    if (vaziaL(lista) || valor > lista->inicio->dado) // inverte esse > aqui
+    {
+        // Inserção no início da lista ou em lista vazia
+        novo->prox = lista->inicio;
+        lista->inicio = novo;
+
+        if (!lista->fim)
+            lista->fim = lista->inicio;
+
+        lista->tamanho++;
+        return true;
+    }
+
+    No<T> *anterior = nullptr;
+    No<T> *atual = lista->inicio;
+
+    // Encontrar a posição de inserção
+    while (atual && valor < atual->dado) // inverte esse < aqui
+    {
+        anterior = atual;
+        atual = atual->prox;
+    }
+
+    // Inserir o novo elemento
+    novo->prox = atual;
+    anterior->prox = novo;
+
+    if (!novo->prox)
+        lista->fim = novo;
+
+    lista->tamanho++;
+    return true;
 }
 
 #endif // _HPP_LISTA_DESCRITOR
