@@ -1,0 +1,54 @@
+mostrar L1 N
+mostrar L2 N
+mostrar L3 N
+inserir L1 7 a b o b o r a
+inserir L2 5 t e s t e
+inserir L3 3 K P T
+mostrar L1 N
+mostrar L1 I
+mostrar L2 N
+mostrar L3 N
+substituir L2 2 b o
+mostrar L2 N
+mostrar L2 I
+inserirCaractereApos L1 W o
+mostrar L1 N
+mostrar L1 I
+mostrar L1 N
+inserirCaractereApos L1 Z a
+mostrar L1 N
+mostrar L1 I
+mostrar L1 N
+contarOcorrencia L1 L2
+inserirCaractereApos L1 W a
+mostrar L1 N
+substituir L2 1 W
+contarOcorrencia L1 L2
+substituir L2 2 bo
+mostrar L1 N
+mostrar L2 N
+mostrar L3 N
+inserirAntesPrimeiraOcorrencia L1 L2 L3
+mostrar L1 N
+mostrar L2 N
+mostrar L3 N
+mostrar L1 I
+mostrar L2 I
+mostrar L3 I
+substituir L2 1 a
+substituir L3 2 H F
+inserirAntesPrimeiraOcorrencia L1 L2 L3
+mostrar L1 N
+mostrar L2 N
+mostrar L3 N
+mostrar L1 I
+mostrar L2 I
+mostrar L3 I
+inserirCaractereApos L1 B U
+substituir L2 1 U
+substituir L3 2 D J
+contarOcorrencia L1 L2
+inserirAntesPrimeiraOcorrencia L1 L2 L3
+mostrar L1 N
+mostrar L2 N
+mostrar L3 N
